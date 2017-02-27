@@ -8,8 +8,15 @@
 
 import UIKit
 
-class ViewController: UICollectionViewController {
-
+final class ViewController: UICollectionViewController {
+    
+    // MARK: - Properties
+    fileprivate let reuseIdentifier = "ViewCell"
+    
+    fileprivate let itemPerRow: CGFloat = 3
+    
+    fileprivate let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
+    
     var images: [String]?
     
     override func viewDidLoad() {
@@ -24,10 +31,36 @@ class ViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // TODO:
+        return 6
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // TODO:
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier,
+                                                      for: indexPath) as!PhotoCell
+        let photo = photoForIndexPath(indexPathh:indexPath)
+        cell.backgroundColor = UIColor.black
+        // Configure the cell
+        cell.imageView.image = photo.
+        return cell
+        
     }
 }
 
+extension ViewController: UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let paddingSpace = sectionInsets.left * (itemPerRow + 1)
+        let availableWidth = view.frame.width - paddingSpace
+        let widthPerItem = availableWidth / itemPerRow
+        
+        return CGSize(width: widthPerItem, height: widthPerItem)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return sectionInsets
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return sectionInsets.left
+    }
+}
