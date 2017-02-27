@@ -17,7 +17,7 @@ final class ViewController: UICollectionViewController {
     
     fileprivate let sectionInsets = UIEdgeInsets(top: 50.0, left: 20.0, bottom: 50.0, right: 20.0)
     
-    var images: [String]?
+    var images =  [ ["1", "2", "3", "4"], ["5", "6"] ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,20 +28,23 @@ final class ViewController: UICollectionViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return self.images.count
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // TODO:
-        return 6
+        return images.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // TODO:
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier,
                                                       for: indexPath) as!PhotoCell
-        let photo = photoForIndexPath(indexPathh:indexPath)
         cell.backgroundColor = UIColor.black
         // Configure the cell
-        cell.imageView.image = photo.
+        cell.imageView.image = UIImage(named: self.images[indexPath.section][indexPath.row])
+        print(indexPath)
         return cell
         
     }
