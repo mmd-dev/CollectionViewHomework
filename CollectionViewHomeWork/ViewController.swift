@@ -10,7 +10,9 @@ import UIKit
 
 import Photos
 
-final class ViewController: UICollectionViewController {
+import AssetsLibrary
+
+final class ViewController: UICollectionViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: - Properties
     fileprivate let reuseIdentifier = "ViewCell"
@@ -21,7 +23,7 @@ final class ViewController: UICollectionViewController {
     
     var images =  [ ["1", "2", "3", "4"], ["5", "6"] ]
     
-    var assets = [PHAsset]()
+    var assets = [UIImagePickerController]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
